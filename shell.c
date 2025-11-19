@@ -10,6 +10,7 @@ int lsh_cd(char **args);
 int lsh_help(char **args);
 int lsh_exit(char **args);
 int lsh_seer(char **args);
+int lsh_peekin(char **args);
 
 /*
   List of builtin commands, followed by their corresponding functions.
@@ -18,14 +19,16 @@ char *builtin_str[] = {
   "cd",
   "help",
   "exit",
-  "seer"
+  "seer",
+  "peekin"
 };
 
 int (*builtin_func[]) (char **) = {
   &lsh_cd,
   &lsh_help,
   &lsh_exit,
-  &lsh_seer
+  &lsh_seer,
+  &lsh_peekin 
 };
 
 int lsh_num_builtins() {
@@ -37,8 +40,8 @@ int lsh_num_builtins() {
 */
 
 /**
-   @brief Builtin command: change directory.
-   @param args List of args.  args[0] is "cd".  args[1] is the directory.
+   @brief Builtin command find words in a file.
+   @param args List of args.  args[0] is "seer".  args[1] is the search string and args[2] is the file.
    @return Always returns 1, to continue executing.
  */
 
@@ -77,6 +80,11 @@ int lsh_seer(char **args)
     return 1;
 } 
 
+/**
+   @brief Builtin command: change directory.
+   @param args List of args.  args[0] is "cd".  args[1] is the directory.
+   @return Always returns 1, to continue executing.
+ */
 
 int lsh_cd(char **args)
 {
