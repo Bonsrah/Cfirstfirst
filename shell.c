@@ -40,6 +40,34 @@ int lsh_num_builtins() {
 */
 
 /**
+   @brief Builtin command to display a file on the terminal.
+   @param args List of args.  args[0] is "peekin".  args[1] is the file name.
+   @return Always returns 1, to continue executing.
+ */
+
+
+int lsh_peekin(char **args){
+
+    if (args[1]==NULL){
+        fprintf(stderr,"lsh: expected argument to \"peekin\"\n");
+    }
+    else{
+       const char *filename = args[1];
+       FILE *file = fopen (filename, "r");
+       if (file == NULL){
+           perror("lsh");
+    }
+      char ch;
+      while ((ch = fgetc(file)) != EOF){ 
+          putchar(ch);
+      }
+      fclose(file);
+    return 1;
+    }
+}
+
+
+/**
    @brief Builtin command find words in a file.
    @param args List of args.  args[0] is "seer".  args[1] is the search string and args[2] is the file.
    @return Always returns 1, to continue executing.
@@ -289,7 +317,7 @@ void lsh_loop(void)
   int status;
 
   do {
-    printf("> ");
+    printf(">>>>>>>> ");
     line = lsh_read_line();
     args = lsh_split_line(line);
     status = lsh_execute(args); //what does status store
